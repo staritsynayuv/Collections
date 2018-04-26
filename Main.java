@@ -1,10 +1,43 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    private   static  void showMenu() {
+    private final Scanner in = new Scanner(System.in);
+    private final ListUiHandler listUiHandler = new ListUiHandler();
+    private final SetUiHandler setUiHandler = new SetUiHandler();
+    private final DequeUiHanler dequeUiHanler = new DequeUiHanler();
+    private final MapUiHandler mapUiHandler = new MapUiHandler();
+
+    public static void main(String[] args) {
+        new Main().call();
+    }
+
+    private void call() {
+        while (true) {
+            showMenu();
+            getHandler().call();
+        }
+    }
+
+    private UiHandler getHandler() {
+        switch (in.nextInt()) {
+            case 1:
+                return listUiHandler;
+
+            case 2:
+                return setUiHandler;
+
+            case 3:
+                return dequeUiHanler;
+
+            case 4:
+                return mapUiHandler;
+
+            default:
+                return new FinalUiHandler();
+        }
+    }
+
+    private void showMenu() {
         System.out.println("Выберите тип коллекции: ");
         System.out.println("1. List");
         System.out.println("2. Set");
@@ -12,43 +45,4 @@ public class Main {
         System.out.println("4. Map");
         System.out.print(">");
     }
-
-    private static void showMenuOfSet(){
-
-    }
-
-    private  static void showMenuOfMap(){
-
-    }
-
-    public static  void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        while (true) {
-            showMenu();
-            switch (in.nextInt()) {
-                case 1:
-                    new ListUiHandler().call();
-                    break;
-                case 2:
-                    showMenuOfSet();
-                    break;
-                case 3:
-                    new DequeUiHanler().call();
-                    break;
-                case 4:
-                    showMenuOfMap();
-                    break;
-
-                default:
-                    return;
-
-            }
-
-        }
-
-
-
-    }
-
-
 }
